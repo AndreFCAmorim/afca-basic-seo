@@ -1,67 +1,67 @@
 .afca-seo-wrap h1 {
-  margin-bottom: 5px;
+	margin-bottom: 5px;
 }
 .afca-seo-wrap > p.description {
-  margin-bottom: 15px;
+	margin-bottom: 15px;
 }
 
 .afca-seo-fields p {
-  margin: 0 0 14px;
+	margin: 0 0 14px;
 }
 .afca-seo-fields label {
-  display: inline-block;
+	display: inline-block;
 }
 .afca-seo-fields label strong {
-  display: inline-block;
-  margin-bottom: 3px;
+	display: inline-block;
+	margin-bottom: 3px;
 }
 .afca-seo-fields .afca-char-count {
-  display: inline-block;
-  margin-top: 3px;
-  margin-right: 8px;
-  font-size: 12px;
-  font-weight: 500;
+	display: inline-block;
+	margin-top: 3px;
+	margin-right: 8px;
+	font-size: 12px;
+	font-weight: 500;
 }
 .afca-seo-fields hr {
-  margin: 18px 0;
-  border: 0;
-  border-top: 1px solid #dcdcde;
+	margin: 18px 0;
+	border: 0;
+	border-top: 1px solid #dcdcde;
 }
 .afca-seo-fields h3 {
-  margin: 4px 0 12px;
-  font-size: 14px;
+	margin: 4px 0 12px;
+	font-size: 14px;
 }
 
 .afca-image-picker .afca-image-preview {
-  display: block;
-  margin: 8px 0;
+	display: block;
+	margin: 8px 0;
 }
 .afca-image-picker .afca-image-preview img {
-  display: block;
-  max-width: 260px;
-  height: auto;
-  border: 1px solid #dcdcde;
-  padding: 3px;
-  background: #fff;
-  border-radius: 3px;
+	display: block;
+	max-width: 260px;
+	height: auto;
+	border: 1px solid #dcdcde;
+	padding: 3px;
+	background: #fff;
+	border-radius: 3px;
 }
 .afca-image-picker .afca-image-buttons {
-  display: inline-block;
-  margin-right: 8px;
+	display: inline-block;
+	margin-right: 8px;
 }
 
 .afca-checklist th {
-  font-weight: 400;
+	font-weight: 400;
 }
 .afca-checklist th code {
-  display: inline-block;
-  margin-left: 4px;
-  font-size: 11px;
-  background: #f0f0f1;
-  padding: 1px 6px;
-  border-radius: 3px;
+	display: inline-block;
+	margin-left: 4px;
+	font-size: 11px;
+	background: #f0f0f1;
+	padding: 1px 6px;
+	border-radius: 3px;
 }
 
 .afca-term-add .afca-seo-fields {
-  max-width: 95%;
+	max-width: 95%;
 }

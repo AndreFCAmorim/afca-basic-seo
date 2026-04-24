@@ -1,10 +1,11 @@
 <?php
 /**
  * Plugin Name: AFCA Basic SEO
- * Plugin URI:  https://example.com/afca-basic-seo
- * Description: Alternativa leve ao Yoast SEO. Meta tags, Open Graph, Twitter Cards, canónica e controlo do sitemap nativo do WordPress.
+ * Plugin URI:  https://www.andreamorim.site/plugin-documentation/afca-basic-seo
+ * Description: A light alternative to Yoast SEO. Meta tags, Open Graph, Twitter Cards, canonical and native WordPress sitemap control.
  * Version:     1.1.0
- * Author:      AFCA
+ * Author:      André Amorim
+ * Author URI:  https://www.andreamorim.site
  * License:     GPLv2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: afca-basic-seo

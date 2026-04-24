@@ -1,23 +1,17 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; }
+	exit;
+}
 
-/**
- * Frontend — gera todas as meta tags, OG, Twitter, canónica e robots.
- */
 class AFCA_SEO_Frontend {
 
 	public function __construct() {
 		add_filter( 'document_title_separator', [ $this, 'filter_title_separator' ] );
 		add_filter( 'document_title_parts', [ $this, 'filter_title_parts' ] );
 		add_filter( 'wp_robots', [ $this, 'filter_robots' ] );
-
-		// Substituir canónica nativa.
 		remove_action( 'wp_head', 'rel_canonical' );
 		add_action( 'wp_head', [ $this, 'output_canonical' ], 5 );
-
 		add_action( 'wp_head', [ $this, 'output_meta_tags' ], 1 );
-
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_style' ] );
 	}
 
@@ -116,7 +110,6 @@ class AFCA_SEO_Frontend {
 			echo '<meta property="og:image:secure_url" content="' . esc_url( $og_image ) . "\" />\n";
 		}
 
-		// article:* para posts.
 		if ( is_singular( 'post' ) ) {
 			$post = get_post();
 			if ( $post ) {
@@ -138,7 +131,6 @@ class AFCA_SEO_Frontend {
 			}
 		}
 
-		// Twitter Card.
 		echo '<meta name="twitter:card" content="' . esc_attr( $card_type ) . "\" />\n";
 		if ( $twitter_usr ) {
 			$user = '@' . ltrim( $twitter_usr, '@' );
@@ -157,8 +149,6 @@ class AFCA_SEO_Frontend {
 
 		echo "<!-- /AFCA Basic SEO -->\n\n";
 	}
-
-	/* ---------------------- getters ---------------------- */
 
 	private function get_meta_title() {
 		if ( is_singular() ) {

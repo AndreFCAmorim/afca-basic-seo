@@ -1,13 +1,8 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; }
+	exit;
+}
 
-/**
- * Breadcrumbs — shortcode [afca_breadcrumbs] e construção da trilha
- * para os vários contextos do WordPress (singular, arquivos, pesquisa, 404, etc.).
- *
- * Saída com microdata schema.org (BreadcrumbList) para bónus SEO.
- */
 class AFCA_SEO_Breadcrumbs {
 
 	const SHORTCODE = 'afca_breadcrumbs';
@@ -16,15 +11,6 @@ class AFCA_SEO_Breadcrumbs {
 		add_shortcode( self::SHORTCODE, [ $this, 'render_shortcode' ] );
 	}
 
-	/**
-	 * Handler do shortcode. Aceita atributos para sobrepor as definições globais.
-	 *
-	 * Atributos suportados:
-	 *   separator    — carácter/HTML a usar entre items (default: definição global)
-	 *   home_label   — texto do primeiro item (default: "Início")
-	 *   show_home    — "yes" / "no" (default: yes)
-	 *   show_current — "yes" / "no" — mostra o item final (página atual) (default: yes)
-	 */
 	public function render_shortcode( $atts ) {
 		$atts = shortcode_atts(
 			[
@@ -43,17 +29,13 @@ class AFCA_SEO_Breadcrumbs {
 
 		$home_label = $atts['home_label'] !== ''
 			? $atts['home_label']
-			: __( 'Início', 'afca-basic-seo' );
+			: __( 'Home', 'afca-basic-seo' );
 
 		$show_home    = ! in_array( strtolower( $atts['show_home'] ), [ 'no', 'false', '0' ], true );
 		$show_current = ! in_array( strtolower( $atts['show_current'] ), [ 'no', 'false', '0' ], true );
 
 		$items = $this->get_items( $home_label, $show_home, $show_current );
 
-		/**
-		 * Permite modificar a lista de items antes do render.
-		 * Cada item: array( 'label' => string, 'url' => string|'' ).
-		 */
 		$items = apply_filters( 'afca_seo_breadcrumb_items', $items );
 
 		if ( empty( $items ) ) {
@@ -63,11 +45,6 @@ class AFCA_SEO_Breadcrumbs {
 		return $this->render_html( $items, $separator );
 	}
 
-	/**
-	 * Constrói a lista de items consoante o contexto atual.
-	 *
-	 * @return array<int, array{label:string, url:string}>
-	 */
 	private function get_items( $home_label, $show_home, $show_current ) {
 		$items = [];
 
@@ -78,16 +55,14 @@ class AFCA_SEO_Breadcrumbs {
 			];
 		}
 
-		// Front page: só o "Início".
 		if ( is_front_page() ) {
 			if ( ! $show_current && ! empty( $items ) ) {
-				// Se nem home nem current, não há nada para mostrar.
+				// If neither home nor current, there is nothing to show.
 				array_pop( $items );
 			}
 			return $items;
 		}
 
-		// Blog (página de posts quando é diferente da front page).
 		if ( is_home() ) {
 			$page_for_posts = (int) get_option( 'page_for_posts' );
 			if ( $page_for_posts ) {
@@ -121,8 +96,8 @@ class AFCA_SEO_Breadcrumbs {
 		if ( is_author() ) {
 			$author = get_queried_object();
 			$label  = $author && isset( $author->display_name )
-				? sprintf( /* translators: %s: author display name */ __( 'Autor: %s', 'afca-basic-seo' ), $author->display_name )
-				: __( 'Autor', 'afca-basic-seo' );
+				? sprintf( /* translators: %s: author display name */ __( 'Author: %s', 'afca-basic-seo' ), $author->display_name )
+				: __( 'Author', 'afca-basic-seo' );
 			$this->append_item( $items, $label, '', $show_current );
 			return $items;
 		}
@@ -158,28 +133,24 @@ class AFCA_SEO_Breadcrumbs {
 		}
 
 		if ( is_search() ) {
-			$label = sprintf( /* translators: %s: search query */ __( 'Pesquisa: %s', 'afca-basic-seo' ), get_search_query() );
+			$label = sprintf( /* translators: %s: search query */ __( 'Search: %s', 'afca-basic-seo' ), get_search_query() );
 			$this->append_item( $items, $label, '', $show_current );
 			return $items;
 		}
 
 		if ( is_404() ) {
-			$this->append_item( $items, __( 'Erro 404', 'afca-basic-seo' ), '', $show_current );
+			$this->append_item( $items, __( '404 Error', 'afca-basic-seo' ), '', $show_current );
 			return $items;
 		}
 
 		return $items;
 	}
 
-	/**
-	 * Constrói items para is_singular().
-	 */
 	private function build_for_singular( &$items, $post, $show_current ) {
 		if ( ! $post || ! isset( $post->ID ) ) {
 			return;
 		}
 
-		// Para CPTs, adiciona link para o arquivo desse tipo (se existir).
 		if ( $post->post_type !== 'post' && $post->post_type !== 'page' ) {
 			$pt_obj = get_post_type_object( $post->post_type );
 			if ( $pt_obj && ! empty( $pt_obj->has_archive ) ) {
@@ -193,7 +164,6 @@ class AFCA_SEO_Breadcrumbs {
 			}
 		}
 
-		// Páginas: mostrar hierarquia de ancestrais.
 		if ( $post->post_type === 'page' && $post->post_parent ) {
 			$ancestors = array_reverse( get_post_ancestors( $post->ID ) );
 			foreach ( $ancestors as $ancestor_id ) {
@@ -204,14 +174,12 @@ class AFCA_SEO_Breadcrumbs {
 			}
 		}
 
-		// Posts: mostrar categoria principal.
 		if ( $post->post_type === 'post' ) {
 			$cats = get_the_category( $post->ID );
 			if ( ! empty( $cats ) ) {
 				$primary = $cats[0];
-				// Incluir cadeia de categorias pai, se houver.
-				$chain = [];
-				$cat   = $primary;
+				$chain   = [];
+				$cat     = $primary;
 				while ( $cat ) {
 					array_unshift( $chain, $cat );
 					$cat = $cat->parent ? get_term( $cat->parent, 'category' ) : null;
@@ -227,7 +195,6 @@ class AFCA_SEO_Breadcrumbs {
 			}
 		}
 
-		// Anexos: mostrar o post pai primeiro, se existir.
 		if ( $post->post_type === 'attachment' && $post->post_parent ) {
 			$items[] = [
 				'label' => get_the_title( $post->post_parent ),
@@ -238,15 +205,11 @@ class AFCA_SEO_Breadcrumbs {
 		$this->append_item( $items, get_the_title( $post->ID ), '', $show_current );
 	}
 
-	/**
-	 * Constrói items para arquivos de termo (categoria, tag, taxonomia custom).
-	 */
 	private function build_for_term( &$items, $term, $show_current ) {
 		if ( ! $term || ! isset( $term->term_id ) ) {
 			return;
 		}
 
-		// Cadeia de termos pai (para taxonomias hierárquicas).
 		$ancestors = [];
 		$parent_id = isset( $term->parent ) ? (int) $term->parent : 0;
 		while ( $parent_id ) {
@@ -267,9 +230,6 @@ class AFCA_SEO_Breadcrumbs {
 		$this->append_item( $items, $term->name, '', $show_current );
 	}
 
-	/**
-	 * Acrescenta um item de "página atual", respeitando show_current.
-	 */
 	private function append_item( &$items, $label, $url, $show_current ) {
 		if ( ! $show_current ) {
 			return;
@@ -280,9 +240,6 @@ class AFCA_SEO_Breadcrumbs {
 		];
 	}
 
-	/**
-	 * Renderiza os items como HTML com microdata schema.org.
-	 */
 	private function render_html( $items, $separator ) {
 		$sep_html = '<span class="afca-breadcrumbs__sep" aria-hidden="true"> ' . esc_html( $separator ) . ' </span>';
 
@@ -312,9 +269,6 @@ class AFCA_SEO_Breadcrumbs {
 
 		$html .= '</ol></nav>';
 
-		/**
-		 * Permite filtrar o HTML final.
-		 */
 		return apply_filters( 'afca_seo_breadcrumbs_html', $html, $items, $separator );
 	}
 }

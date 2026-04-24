@@ -1,10 +1,8 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; }
+	exit;
+}
 
-/**
- * Página de definições do plugin (Geral / Social / Sitemap).
- */
 class AFCA_SEO_Admin {
 
 	public function __construct() {
@@ -16,7 +14,7 @@ class AFCA_SEO_Admin {
 
 	public function action_links( $links ) {
 		$url = admin_url( 'admin.php?page=afca-seo' );
-		array_unshift( $links, '<a href="' . esc_url( $url ) . '">' . esc_html__( 'Definições', 'afca-basic-seo' ) . '</a>' );
+		array_unshift( $links, '<a href="' . esc_url( $url ) . '">' . esc_html__( 'Settings', 'afca-basic-seo' ) . '</a>' );
 		return $links;
 	}
 
@@ -92,9 +90,9 @@ class AFCA_SEO_Admin {
 			'afca-seo-admin',
 			'AFCA_SEO_I18N',
 			[
-				'pickTitle'  => __( 'Escolher imagem', 'afca-basic-seo' ),
-				'pickButton' => __( 'Usar esta imagem', 'afca-basic-seo' ),
-				'chars'      => __( 'caracteres', 'afca-basic-seo' ),
+				'pickTitle'  => __( 'Choose image', 'afca-basic-seo' ),
+				'pickButton' => __( 'Use this image', 'afca-basic-seo' ),
+				'chars'      => __( 'characters', 'afca-basic-seo' ),
 			]
 		);
 	}
@@ -113,11 +111,11 @@ class AFCA_SEO_Admin {
 		?>
 		<div class="wrap afca-seo-wrap">
 			<h1><?php esc_html_e( 'AFCA Basic SEO', 'afca-basic-seo' ); ?></h1>
-			<p class="description"><?php esc_html_e( 'Alternativa leve ao Yoast — só o essencial.', 'afca-basic-seo' ); ?></p>
+			<p class="description"><?php esc_html_e( 'Lightweight alternative to Yoast — just the essentials.', 'afca-basic-seo' ); ?></p>
 
 			<h2 class="nav-tab-wrapper">
 				<a href="?page=afca-seo&tab=general" class="nav-tab <?php echo $active_tab === 'general' ? 'nav-tab-active' : ''; ?>">
-					<?php esc_html_e( 'Geral', 'afca-basic-seo' ); ?>
+					<?php esc_html_e( 'General', 'afca-basic-seo' ); ?>
 				</a>
 				<a href="?page=afca-seo&tab=social" class="nav-tab <?php echo $active_tab === 'social' ? 'nav-tab-active' : ''; ?>">
 					<?php esc_html_e( 'Social / Open Graph', 'afca-basic-seo' ); ?>
@@ -149,21 +147,21 @@ class AFCA_SEO_Admin {
 		<table class="form-table" role="presentation">
 			<tr>
 				<th scope="row">
-					<label for="afca_separator"><?php esc_html_e( 'Separador de título', 'afca-basic-seo' ); ?></label>
+					<label for="afca_separator"><?php esc_html_e( 'Title separator', 'afca-basic-seo' ); ?></label>
 				</th>
 				<td>
 					<input type="text" id="afca_separator" name="afca_seo_options[separator]" value="<?php echo esc_attr( $options['separator'] ); ?>" class="small-text" maxlength="5">
-					<p class="description"><?php esc_html_e( 'Carácter entre partes do título (ex: | - • »).', 'afca-basic-seo' ); ?></p>
+					<p class="description"><?php esc_html_e( 'Character between title parts (e.g., | - • »).', 'afca-basic-seo' ); ?></p>
 				</td>
 			</tr>
 			<tr>
 				<th scope="row">
-					<label for="afca_breadcrumb_separator"><?php esc_html_e( 'Separador de breadcrumbs', 'afca-basic-seo' ); ?></label>
+					<label for="afca_breadcrumb_separator"><?php esc_html_e( 'Breadcrumb separator', 'afca-basic-seo' ); ?></label>
 				</th>
 				<td>
 					<input type="text" id="afca_breadcrumb_separator" name="afca_seo_options[breadcrumb_separator]" value="<?php echo esc_attr( $options['breadcrumb_separator'] ); ?>" class="small-text" maxlength="10">
 					<p class="description">
-						<?php esc_html_e( 'Carácter entre items do breadcrumb (ex: / » > ›). Use o shortcode [afca_breadcrumbs] no tema ou num widget. Pode ser sobreposto por shortcode com separator="…".', 'afca-basic-seo' ); ?>
+						<?php esc_html_e( 'Character between breadcrumb items (e.g., / » > ›). Use the [afca_breadcrumbs] shortcode in your theme or a widget. Can be overridden by the shortcode with separator="…".', 'afca-basic-seo' ); ?>
 					</p>
 				</td>
 			</tr>
@@ -175,7 +173,7 @@ class AFCA_SEO_Admin {
 		?>
 		<table class="form-table" role="presentation">
 			<tr>
-				<th scope="row"><?php esc_html_e( 'Imagem OG por defeito', 'afca-basic-seo' ); ?></th>
+				<th scope="row"><?php esc_html_e( 'Default OG image', 'afca-basic-seo' ); ?></th>
 				<td>
 					<div class="afca-image-picker">
 						<input type="hidden" name="afca_seo_options[og_default_image]" id="afca_og_default_image" value="<?php echo esc_attr( $options['og_default_image'] ); ?>">
@@ -185,16 +183,16 @@ class AFCA_SEO_Admin {
 							<?php endif; ?>
 						</div>
 						<p>
-							<button type="button" class="button afca-upload-image" data-target="afca_og_default_image"><?php esc_html_e( 'Escolher imagem', 'afca-basic-seo' ); ?></button>
-							<button type="button" class="button afca-remove-image" data-target="afca_og_default_image"><?php esc_html_e( 'Remover', 'afca-basic-seo' ); ?></button>
+							<button type="button" class="button afca-upload-image" data-target="afca_og_default_image"><?php esc_html_e( 'Choose image', 'afca-basic-seo' ); ?></button>
+							<button type="button" class="button afca-remove-image" data-target="afca_og_default_image"><?php esc_html_e( 'Remove', 'afca-basic-seo' ); ?></button>
 						</p>
 					</div>
-					<p class="description"><?php esc_html_e( 'Usada quando o conteúdo não tem imagem destacada nem imagem OG personalizada. Recomendado: 1200×630px.', 'afca-basic-seo' ); ?></p>
+					<p class="description"><?php esc_html_e( 'Used when the content has no featured image or custom OG image. Recommended: 1200×630px.', 'afca-basic-seo' ); ?></p>
 				</td>
 			</tr>
 			<tr>
 				<th scope="row">
-					<label for="afca_og_site_name"><?php esc_html_e( 'Nome do site (OG)', 'afca-basic-seo' ); ?></label>
+					<label for="afca_og_site_name"><?php esc_html_e( 'Site name (OG)', 'afca-basic-seo' ); ?></label>
 				</th>
 				<td>
 					<input type="text" id="afca_og_site_name" name="afca_seo_options[og_site_name]" value="<?php echo esc_attr( $options['og_site_name'] ); ?>" class="regular-text">
@@ -202,7 +200,7 @@ class AFCA_SEO_Admin {
 			</tr>
 			<tr>
 				<th scope="row">
-					<label for="afca_twitter_card_type"><?php esc_html_e( 'Tipo de Twitter Card', 'afca-basic-seo' ); ?></label>
+					<label for="afca_twitter_card_type"><?php esc_html_e( 'Twitter Card type', 'afca-basic-seo' ); ?></label>
 				</th>
 				<td>
 					<select id="afca_twitter_card_type" name="afca_seo_options[twitter_card_type]">
@@ -213,10 +211,10 @@ class AFCA_SEO_Admin {
 			</tr>
 			<tr>
 				<th scope="row">
-					<label for="afca_twitter_username"><?php esc_html_e( 'Utilizador Twitter/X', 'afca-basic-seo' ); ?></label>
+					<label for="afca_twitter_username"><?php esc_html_e( 'Twitter/X username', 'afca-basic-seo' ); ?></label>
 				</th>
 				<td>
-					<input type="text" id="afca_twitter_username" name="afca_seo_options[twitter_username]" value="<?php echo esc_attr( $options['twitter_username'] ); ?>" class="regular-text" placeholder="@exemplo">
+					<input type="text" id="afca_twitter_username" name="afca_seo_options[twitter_username]" value="<?php echo esc_attr( $options['twitter_username'] ); ?>" class="regular-text" placeholder="@example">
 				</td>
 			</tr>
 		</table>
@@ -227,8 +225,8 @@ class AFCA_SEO_Admin {
 		$post_types = get_post_types( [ 'public' => true ], 'objects' );
 		$taxonomies = get_taxonomies( [ 'public' => true ], 'objects' );
 		?>
-		<h2><?php esc_html_e( 'Tipos de conteúdo', 'afca-basic-seo' ); ?></h2>
-		<p><?php esc_html_e( 'Marque os tipos de conteúdo que devem aparecer no sitemap.', 'afca-basic-seo' ); ?></p>
+		<h2><?php esc_html_e( 'Content types', 'afca-basic-seo' ); ?></h2>
+		<p><?php esc_html_e( 'Check the content types that should appear in the sitemap.', 'afca-basic-seo' ); ?></p>
 		<table class="form-table afca-checklist" role="presentation">
 			<?php
 			foreach ( $post_types as $pt ) :
@@ -240,15 +238,15 @@ class AFCA_SEO_Admin {
 					<td>
 						<label>
 							<input type="checkbox" name="afca_seo_options[sitemap_post_types][]" value="<?php echo esc_attr( $pt->name ); ?>" <?php checked( in_array( $pt->name, $options['sitemap_post_types'], true ) ); ?>>
-							<?php esc_html_e( 'Incluir no sitemap', 'afca-basic-seo' ); ?>
+							<?php esc_html_e( 'Include in sitemap', 'afca-basic-seo' ); ?>
 						</label>
 					</td>
 				</tr>
 			<?php endforeach; ?>
 		</table>
 
-		<h2><?php esc_html_e( 'Taxonomias', 'afca-basic-seo' ); ?></h2>
-		<p><?php esc_html_e( 'Marque as taxonomias que devem aparecer no sitemap.', 'afca-basic-seo' ); ?></p>
+		<h2><?php esc_html_e( 'Taxonomies', 'afca-basic-seo' ); ?></h2>
+		<p><?php esc_html_e( 'Check the taxonomies that should appear in the sitemap.', 'afca-basic-seo' ); ?></p>
 		<table class="form-table afca-checklist" role="presentation">
 			<?php foreach ( $taxonomies as $tax ) : ?>
 				<tr>
@@ -256,21 +254,21 @@ class AFCA_SEO_Admin {
 					<td>
 						<label>
 							<input type="checkbox" name="afca_seo_options[sitemap_taxonomies][]" value="<?php echo esc_attr( $tax->name ); ?>" <?php checked( in_array( $tax->name, $options['sitemap_taxonomies'], true ) ); ?>>
-							<?php esc_html_e( 'Incluir no sitemap', 'afca-basic-seo' ); ?>
+							<?php esc_html_e( 'Include in sitemap', 'afca-basic-seo' ); ?>
 						</label>
 					</td>
 				</tr>
 			<?php endforeach; ?>
 		</table>
 
-		<h2><?php esc_html_e( 'Autores', 'afca-basic-seo' ); ?></h2>
+		<h2><?php esc_html_e( 'Authors', 'afca-basic-seo' ); ?></h2>
 		<table class="form-table afca-checklist" role="presentation">
 			<tr>
-				<th scope="row"><?php esc_html_e( 'Arquivo de autores', 'afca-basic-seo' ); ?></th>
+				<th scope="row"><?php esc_html_e( 'Author archives', 'afca-basic-seo' ); ?></th>
 				<td>
 					<label>
 						<input type="checkbox" name="afca_seo_options[sitemap_include_authors]" value="1" <?php checked( $options['sitemap_include_authors'] ); ?>>
-						<?php esc_html_e( 'Incluir páginas de autor no sitemap', 'afca-basic-seo' ); ?>
+						<?php esc_html_e( 'Include author pages in sitemap', 'afca-basic-seo' ); ?>
 					</label>
 				</td>
 			</tr>
@@ -278,7 +276,7 @@ class AFCA_SEO_Admin {
 
 		<p>
 			<a href="<?php echo esc_url( home_url( '/wp-sitemap.xml' ) ); ?>" target="_blank" rel="noopener" class="button">
-				<?php esc_html_e( 'Ver sitemap', 'afca-basic-seo' ); ?>
+				<?php esc_html_e( 'View sitemap', 'afca-basic-seo' ); ?>
 			</a>
 		</p>
 		<?php

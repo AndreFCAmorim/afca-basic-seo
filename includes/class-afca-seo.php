@@ -1,10 +1,8 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; }
+	exit;
+}
 
-/**
- * Núcleo do plugin — singleton, carregamento de módulos e gestão de opções.
- */
 class AFCA_SEO {
 
 	const OPTION_KEY = 'afca_seo_options';
@@ -28,16 +26,10 @@ class AFCA_SEO {
 			new AFCA_SEO_Frontend();
 		}
 
-		// O sitemap precisa de estar disponível em ambos os contextos.
 		new AFCA_SEO_Sitemap();
-
-		// Breadcrumbs: shortcode registado globalmente (pode ser renderizado via REST, admin preview, etc.).
 		new AFCA_SEO_Breadcrumbs();
 	}
 
-	/**
-	 * Devolve todas as opções com defaults aplicados.
-	 */
 	public static function get_options() {
 		$defaults = [
 			'separator'               => '|',

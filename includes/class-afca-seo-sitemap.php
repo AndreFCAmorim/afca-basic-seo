@@ -1,18 +1,14 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; }
+	exit;
+}
 
-/**
- * Customização do sitemap nativo do WordPress (wp-sitemap.xml).
- */
 class AFCA_SEO_Sitemap {
 
 	public function __construct() {
 		add_filter( 'wp_sitemaps_post_types', [ $this, 'filter_post_types' ] );
 		add_filter( 'wp_sitemaps_taxonomies', [ $this, 'filter_taxonomies' ] );
 		add_filter( 'wp_sitemaps_add_provider', [ $this, 'filter_providers' ], 10, 2 );
-
-		// Excluir itens com noindex.
 		add_filter( 'wp_sitemaps_posts_query_args', [ $this, 'exclude_noindex_posts' ], 10, 2 );
 		add_filter( 'wp_sitemaps_taxonomies_query_args', [ $this, 'exclude_noindex_terms' ], 10, 2 );
 	}
@@ -37,9 +33,6 @@ class AFCA_SEO_Sitemap {
 		return $taxonomies;
 	}
 
-	/**
-	 * Devolver algo diferente de SitemapProvider remove o provider do sitemap.
-	 */
 	public function filter_providers( $provider, $name ) {
 		if ( $name === 'users' && ! AFCA_SEO::get_option( 'sitemap_include_authors', true ) ) {
 			return false;
