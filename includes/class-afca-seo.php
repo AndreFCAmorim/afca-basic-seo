@@ -28,6 +28,13 @@ class AFCA_SEO {
 
 		new AFCA_SEO_Sitemap();
 		new AFCA_SEO_Breadcrumbs();
+
+		$update_class = new AFCA_SEO_Updates( 'https://andreamorim.site/', basename( AFCA_SEO_PATH ), AFCA_SEO_VERSION );
+
+		add_action( 'afca_basic_seo_updates', [ $update_class, 'check_for_updates_on_hub' ] );
+		if ( ! wp_next_scheduled( 'afca_basic_seo_updates' ) ) {
+			wp_schedule_event( current_time( 'timestamp' ), 'daily', 'afca_basic_seo_updates' );
+		}
 	}
 
 	public static function get_options() {

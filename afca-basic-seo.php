@@ -29,6 +29,7 @@ require_once AFCA_SEO_PATH . 'includes/class-afca-seo-meta.php';
 require_once AFCA_SEO_PATH . 'includes/class-afca-seo-frontend.php';
 require_once AFCA_SEO_PATH . 'includes/class-afca-seo-sitemap.php';
 require_once AFCA_SEO_PATH . 'includes/class-afca-seo-breadcrumbs.php';
+require_once AFCA_SEO_PATH . 'includes/class-afca-seo-updates.php';
 
 add_action(
 	'plugins_loaded',
