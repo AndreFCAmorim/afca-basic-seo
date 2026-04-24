@@ -17,6 +17,8 @@ class AFCA_SEO_Frontend {
 		add_action( 'wp_head', [ $this, 'output_canonical' ], 5 );
 
 		add_action( 'wp_head', [ $this, 'output_meta_tags' ], 1 );
+
+		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_style' ] );
 	}
 
 	public function filter_title_separator( $sep ) {
@@ -299,5 +301,9 @@ class AFCA_SEO_Frontend {
 			return 'article';
 		}
 		return 'website';
+	}
+
+	public function enqueue_style() {
+		wp_enqueue_style( 'afca-basic-seo-frontend', AFCA_SEO_URL . '/assets/frontend.css', [], AFCA_SEO_VERSION );
 	}
 }

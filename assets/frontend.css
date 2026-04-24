@@ -1,0 +1,6 @@
+.afca-breadcrumbs__list {
+	list-style-type: none;
+	display: flex;
+	gap: 6px;
+	padding: 0;
+}
